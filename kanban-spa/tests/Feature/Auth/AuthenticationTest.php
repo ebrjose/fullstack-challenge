@@ -14,14 +14,12 @@ class AuthenticationTest extends TestCase
     public function can_login_with_valid_credentials()
     {
         $user = User::factory()->create();
-
-        $response = $this->post(route('login'), [
+        $response = $this->postJson(route('auth.login'), [
             'email' => $user->email,
             'password' => 'password',
         ]);
 
         $this->assertAuthenticated();
-        $response->assertNoContent();
     }
 
     /** @test */
@@ -29,7 +27,7 @@ class AuthenticationTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $this->post(route('login'), [
+        $this->postJson(route('auth.login'), [
             'email' => $user->email,
             'password' => 'wrong-password',
         ]);

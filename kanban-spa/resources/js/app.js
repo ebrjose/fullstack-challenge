@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-// import store from './store'
+import store from './store'
 import { router } from './router'
 
 import App from './App.vue'
@@ -10,5 +10,5 @@ createApp(App)
   .component('default-layout', DefaultLayout)
   .component('empty-layout', EmptyLayout)
   .use(router)
-  // .use(store)
+  .use(store)
   .mount('#app')

@@ -71,7 +71,7 @@ import FormField from '@/components/forms/FormField.vue'
 import InputField from '@/components/forms/InputField.vue'
 import ButtonField from '@/components/forms/ButtonField.vue'
 
-import { login } from '@/api/auth'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
@@ -81,12 +81,16 @@ export default {
   },
   data() {
     return {
-      form: { email: 'admin@example.com', password: 'password' },
+      form: { email: 'user@example.com', password: 'password' },
     }
   },
   methods: {
+    ...mapActions('auth', ['login']),
     async handleLogin() {
-      const { data } = await login(this.form)
+      const data = await this.login(this.form)
+      if (data.user) {
+        this.$router.push({ name: 'Dashboard' })
+      }
     },
   },
 }
