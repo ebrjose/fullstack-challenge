@@ -14,58 +14,41 @@
     </section>
 
     <section class="mt-10">
-      <form class="flex flex-col" method="POST" action="#">
-        <div class="mb-6 pt-3 rounded">
-          <label
-            class="block text-gray-700 text-sm font-bold mb-2 ml-3"
-            for="email"
-          >
-            Email
-          </label>
-          <input
-            type="text"
-            id="email"
-            class="
-              bg-gray-100
-              rounded
-              w-full
-              text-gray-700
-              focus:outline-none
-              border-b-4 border-gray-300
-              focus:border-purple-600
-              transition
-              duration-500
-              px-3
-              pb-3
-            "
+      <form
+        class="flex flex-col"
+        method="POST"
+        @submit.prevent="handleRegister"
+      >
+        <form-field label="Name">
+          <input-field v-model="form.name" type="text" placeholder="John Doe" />
+        </form-field>
+
+        <form-field label="Email">
+          <input-field
+            v-model="form.email"
+            type="email"
+            placeholder="jdoe@example.com"
           />
-        </div>
-        <div class="mb-6 pt-3 rounded">
-          <label
-            class="block text-gray-700 text-sm font-bold mb-2 ml-3"
-            for="password"
-          >
-            Password
-          </label>
-          <input
+        </form-field>
+
+        <form-field label="Password">
+          <input-field
+            v-model="form.password"
             type="password"
-            id="password"
-            class="
-              bg-gray-100
-              rounded
-              w-full
-              text-gray-700
-              focus:outline-none
-              border-b-4 border-gray-300
-              focus:border-purple-600
-              transition
-              duration-500
-              px-3
-              pb-3
-            "
+            placeholder="secret"
           />
-        </div>
-        <div class="flex justify-end">
+        </form-field>
+
+        <form-field label="Password Confirmation">
+          <input-field
+            v-model="form.password_confirmation"
+            type="password"
+            placeholder="secret"
+          />
+        </form-field>
+
+        <div class="flex items-end flex-col">
+          <span class="text-sm">Already have an account?</span>
           <span
             class="
               text-sm text-purple-600
@@ -74,28 +57,10 @@
               mb-6
             "
           >
-            <router-link :to="{ name: 'Register' }">
-              Do you not have an account?
-            </router-link>
+            <router-link :to="{ name: 'Login' }"> Sign In </router-link>
           </span>
         </div>
-        <button
-          class="
-            bg-purple-600
-            hover:bg-purple-700
-            text-white
-            font-bold
-            py-2
-            rounded
-            shadow-lg
-            hover:shadow-xl
-            transition
-            duration-200
-          "
-          type="submit"
-        >
-          Sign In
-        </button>
+        <button-field type="submit">Sign Up</button-field>
       </form>
     </section>
   </main>
@@ -114,3 +79,35 @@
     </a>
   </footer>
 </template>
+
+<script>
+import FormField from '@/components/forms/FormField.vue'
+import InputField from '@/components/forms/InputField.vue'
+import ButtonField from '@/components/forms/ButtonField.vue'
+
+import { register } from '@/api/auth'
+
+export default {
+  components: {
+    FormField,
+    InputField,
+    ButtonField,
+  },
+  data() {
+    return {
+      form: {
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
+      },
+    }
+  },
+  methods: {
+    async handleRegister() {
+      const { data } = await register(this.form)
+      console.log('handleRegister -> data', data)
+    },
+  },
+}
+</script>

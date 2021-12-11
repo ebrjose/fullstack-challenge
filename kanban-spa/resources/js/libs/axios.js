@@ -1,7 +1,7 @@
 import '@/bootstrap'
 
 const request = window.axios.create({
-  baseURL: process.env.MIX_BASE_API,
+  baseURL: '/api',
   timeout: 1000,
 })
 

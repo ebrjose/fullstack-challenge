@@ -16,14 +16,23 @@
     <section class="mt-10">
       <form class="flex flex-col" method="POST" @submit.prevent="handleLogin">
         <form-field label="Email">
-          <input-field type="email" placeholder="user@example.com" />
+          <input-field
+            v-model="form.email"
+            type="email"
+            placeholder="user@example.com"
+          />
         </form-field>
 
         <form-field label="Password">
-          <input-field type="password" placeholder="secret" />
+          <input-field
+            v-model="form.password"
+            type="password"
+            placeholder="secret"
+          />
         </form-field>
 
-        <div class="flex justify-end">
+        <div class="flex items-end flex-col">
+          <span class="text-sm">Don't have an account?</span>
           <span
             class="
               text-sm text-purple-600
@@ -33,7 +42,7 @@
             "
           >
             <router-link :to="{ name: 'Register' }">
-              Do you not have an account?
+              Create account
             </router-link>
           </span>
         </div>
@@ -62,15 +71,22 @@ import FormField from '@/components/forms/FormField.vue'
 import InputField from '@/components/forms/InputField.vue'
 import ButtonField from '@/components/forms/ButtonField.vue'
 
+import { login } from '@/api/auth'
+
 export default {
   components: {
     FormField,
     InputField,
     ButtonField,
   },
+  data() {
+    return {
+      form: { email: 'admin@example.com', password: 'password' },
+    }
+  },
   methods: {
-    handleLogin() {
-      alert(1)
+    async handleLogin() {
+      const { data } = await login(this.form)
     },
   },
 }
