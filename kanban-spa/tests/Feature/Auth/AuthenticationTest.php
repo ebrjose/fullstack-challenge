@@ -10,11 +10,12 @@ class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_users_can_authenticate_using_the_login_screen()
+    /** @test */
+    public function can_login_with_valid_credentials()
     {
         $user = User::factory()->create();
 
-        $response = $this->post('/login', [
+        $response = $this->post(route('login'), [
             'email' => $user->email,
             'password' => 'password',
         ]);
@@ -23,11 +24,12 @@ class AuthenticationTest extends TestCase
         $response->assertNoContent();
     }
 
-    public function test_users_can_not_authenticate_with_invalid_password()
+    /** @test */
+    public function cannot_login_with_invalid_credentials()
     {
         $user = User::factory()->create();
 
-        $this->post('/login', [
+        $this->post(route('login'), [
             'email' => $user->email,
             'password' => 'wrong-password',
         ]);
