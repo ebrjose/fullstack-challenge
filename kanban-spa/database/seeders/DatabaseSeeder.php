@@ -22,6 +22,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory(5)->create();
-        Board::factory(100)->create();
+        Board::factory(20)->create();
     }
 }

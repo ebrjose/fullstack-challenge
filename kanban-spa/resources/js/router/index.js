@@ -26,7 +26,7 @@ const routes = [
     meta: { layout: 'empty' },
   },
   {
-    path: '/board',
+    path: '/board/:id',
     name: 'Board',
     component: lazyLoad('Board'),
   },

@@ -1,16 +1,7 @@
 <template>
   <input
     type="text"
-    class="
-      form-input
-      rounded
-      w-full
-      focus:border-purple-600
-      px-3
-      pb-3
-      transition
-      duration-500
-    "
+    class="form-input rounded w-full focus:border-purple-600 px-3 pb-3 transition duration-500"
     :value="modelValue"
     :placeholder="placeholder"
     @input="$emit('update:modelValue', $event.target.value)"

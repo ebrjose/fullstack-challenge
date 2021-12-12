@@ -9,11 +9,13 @@
     <title>Kanban-Challenge</title>
 
     <!-- Styles -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <script src="{{ mix('js/app.js') }}" defer></script>
 </head>
-<body class="body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0">
+<body class="body-bg min-h-screen pt-12 md:pt-20 pb-6 md:px-0">
     <div id="app">
         <app></app>
     </div>

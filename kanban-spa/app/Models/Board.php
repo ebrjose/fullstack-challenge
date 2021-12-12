@@ -19,4 +19,14 @@ class Board extends Model
         $this->attributes['title'] = $value;
         $this->attributes['slug'] = Str::slug($value);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function scopeAuthUser($query)
+    {
+        $query->where('user_id', auth()->user()->id);
+    }
 }

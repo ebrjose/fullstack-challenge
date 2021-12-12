@@ -8,6 +8,7 @@ const state = {
 
 const getters = {
   isLogged: (state) => state.isLogged,
+  user: (state) => state.user,
 }
 
 const mutations = {
@@ -27,7 +28,6 @@ const actions = {
           resolve(data)
         })
         .catch((error) => {
-          console.log(error)
           reject(error)
         })
     })
@@ -39,6 +39,7 @@ const actions = {
         .then(() => {
           removeToken()
           resolve()
+          commit('SET_USER', null)
         })
         .catch((error) => {
           reject(error)

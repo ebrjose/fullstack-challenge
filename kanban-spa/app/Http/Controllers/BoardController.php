@@ -27,7 +27,7 @@ class BoardController extends Controller
     public function store(StoreBoardRequest $request)
     {
         $data = $request->validated();
-        $data['user_id'] = 1;//$request->getUser();
+        $data['user_id'] = 1; //$request->getUser();
         $sendData['board'] = $this->boardService->create($data);
 
         return $this->response($sendData, 201);
