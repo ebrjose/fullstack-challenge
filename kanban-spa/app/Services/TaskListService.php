@@ -4,13 +4,13 @@ namespace App\Services;
 
 use App\Abstracts\Repository;
 use App\Abstracts\Service;
-use App\Repositories\BoardRepository;
+use App\Repositories\TaskListRepository;
 
-class BoardService extends Service
+class TaskListService extends Service
 {
     protected Repository $repository;
 
-    public function __construct(BoardRepository $repository)
+    public function __construct(TaskListRepository $repository)
     {
         $this->repository = $repository;
     }

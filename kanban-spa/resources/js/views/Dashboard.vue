@@ -19,6 +19,7 @@ export default {
   data() {
     return {
       boards: [],
+      user_id: this.$store.user,
     }
   },
   mounted() {
@@ -26,7 +27,7 @@ export default {
   },
   methods: {
     async getBoards() {
-      const { data } = await BoardResource.getAll({ scope: 'authUser' })
+      const { data } = await BoardResource.getAll({ scope: 'me' })
       this.boards = data.rows
     },
   },

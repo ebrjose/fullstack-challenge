@@ -27,7 +27,7 @@ abstract class Service
     {
         $resource = $this->getRequestedResource($resourceId);
 
-        $this->repository->update($resource, $data);
+        $this->repository->update($resourceId, $data);
 
         return $resource;
     }
@@ -41,7 +41,7 @@ abstract class Service
     {
         $resource = $this->repository->getById($resourceId, $options);
 
-        if(is_null($resource)) {
+        if (is_null($resource)) {
             throw new ResourceNotFoundException;
         }
 

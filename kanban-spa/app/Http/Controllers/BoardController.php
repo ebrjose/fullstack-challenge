@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Board\StoreBoardRequest;
 use App\Http\Requests\Board\UpdateBoardRequest;
-use App\Models\Board;
 use App\Services\BoardService;
+use Symfony\Component\HttpFoundation\Response;
 
 class BoardController extends Controller
 {
@@ -20,39 +20,37 @@ class BoardController extends Controller
     {
         $resourceOptions = $this->parseResourceOptions();
         $sendData = $this->boardService->getAll($resourceOptions);
-
-        return $this->response($sendData);
+        return $this->response($sendData, Response::HTTP_OK);
     }
 
     public function store(StoreBoardRequest $request)
     {
         $data = $request->validated();
-        $data['user_id'] = 1; //$request->getUser();
+        $data['user_id'] = $request->getUser();
         $sendData['board'] = $this->boardService->create($data);
 
-        return $this->response($sendData, 201);
+        return $this->response($sendData, Response::HTTP_CREATED);
     }
 
-    public function show($board)
+    public function show($boardId)
     {
         $resourceOptions = $this->parseResourceOptions();
-        $sendData = $this->boardService->getById($board, $resourceOptions);
+        $sendData = $this->boardService->getById($boardId, $resourceOptions);
 
-        return $this->response($sendData);
+        return $this->response($sendData, Response::HTTP_OK);
     }
 
-    public function update(UpdateBoardRequest $request, $board)
+    public function update(UpdateBoardRequest $request, $boardId)
     {
         $data = $request->validated();
-        $sendData['consultorio'] = $this->boardService->update($board, $data);
+        $sendData['board'] = $this->boardService->update($boardId, $data);
 
-        return $this->response($sendData);
+        return $this->response($sendData, Response::HTTP_ACCEPTED);
     }
 
-    public function destroy($board)
+    public function destroy($boardId)
     {
-        $this->boardService->delete($board);
-
-        return $this->response(null, 204);
+        $this->boardService->delete($boardId);
+        return $this->response(null, Response::HTTP_NO_CONTENT);
     }
 }

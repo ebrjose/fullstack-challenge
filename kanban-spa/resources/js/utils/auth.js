@@ -13,3 +13,7 @@ export function setLogged(isLogged) {
 export function removeToken() {
   return Cookies.remove(TokenKey)
 }
+
+export const getUser = () => Cookies.get('user')
+export const setUser = (user) => Cookies.set('user', user)
+export const removeUser = () => Cookies.remove('user')

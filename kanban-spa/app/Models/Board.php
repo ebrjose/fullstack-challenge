@@ -10,6 +10,8 @@ class Board extends Model
 {
     use HasFactory;
 
+    public static $whiteListFilter = ['user_id'];
+
     protected $fillable = [
         'user_id', 'title', 'slug'
     ];
@@ -25,7 +27,7 @@ class Board extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function scopeAuthUser($query)
+    public function scopeMe($query)
     {
         $query->where('user_id', auth()->user()->id);
     }
