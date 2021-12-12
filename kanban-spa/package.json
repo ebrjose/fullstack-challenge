@@ -25,6 +25,7 @@
     "vue": "^3.0.5",
     "vue-loader": "^16.1.2",
     "vue-router": "^4.0.12",
+    "vuedraggable": "^4.1.0",
     "vuex": "^4.0.2"
   },
   "keywords": [],
