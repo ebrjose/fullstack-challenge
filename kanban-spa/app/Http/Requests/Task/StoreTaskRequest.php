@@ -26,7 +26,6 @@ class StoreTaskRequest extends FormRequest
         return [
             'task_list_id' => 'required',
             'title' => 'required',
-            'deadline' => 'date'
         ];
     }
 }

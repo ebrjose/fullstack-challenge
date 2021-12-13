@@ -1,5 +1,5 @@
 <template>
-  <draggable :list="items" item-key="name" ghost-class="bg-purple-200" @change="log" group="tasks" class="draggable-task-items">
+  <draggable :list="items" item-key="name" ghost-class="bg-cyan-100" @change="log" group="tasks" class="draggable-task-items">
     <template #item="{ element }">
       <task-item :task="element" />
     </template>
@@ -51,8 +51,12 @@ export default {
         await this.updateTasksIndexes({ indexes: this.indexes })
       }
     },
-    log(e) {
+    log(event) {
       this.updateIndexes()
+
+      if (event.added && this.isDone) {
+        this.emitter.emit('show-modal', true)
+      }
     },
   },
 }

@@ -26,7 +26,7 @@ class UpdateTaskRequest extends FormRequest
         return [
             'task_list_id' => 'required',
             'title' => 'required',
-            'deadline' => 'date'
+            'deadline' => 'required|date'
         ];
     }
 }

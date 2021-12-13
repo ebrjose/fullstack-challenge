@@ -1,7 +1,7 @@
 <template>
   <form v-if="formVisible" class="bg-gray-300 p-2 rounded mt-2" v-click-outside="hideForm" @submit.prevent="handleSubmit">
     <input-field ref="title" v-model="form.title" type="text" placeholder="Write a title for this task..." class="mb-2" required />
-    <input-field v-model="form.deadline" type="date" placeholder="dd/mm/yyyy" class="mb-2" />
+    <!-- <input-field v-model="form.deadline" type="date" placeholder="dd/mm/yyyy" class="mb-2" /> -->
     <button-field class="px-10" type="submit">Save</button-field>
   </form>
 
