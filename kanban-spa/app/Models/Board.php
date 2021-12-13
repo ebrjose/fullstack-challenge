@@ -13,18 +13,17 @@ class Board extends Model
     public static $whiteListFilter = ['user_id'];
 
     protected $fillable = [
-        'user_id', 'title', 'slug'
+        'user_id', 'title'
     ];
-
-    public function setTitleAttribute($value)
-    {
-        $this->attributes['title'] = $value;
-        $this->attributes['slug'] = Str::slug($value);
-    }
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function taskList()
+    {
+        return $this->hasMany(TaskList::class);
     }
 
     public function scopeMe($query)

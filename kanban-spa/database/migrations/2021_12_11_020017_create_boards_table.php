@@ -17,7 +17,6 @@ class CreateBoardsTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->string('title');
-            $table->string('slug')->unique();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

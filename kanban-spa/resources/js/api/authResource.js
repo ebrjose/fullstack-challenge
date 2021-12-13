@@ -8,6 +8,13 @@ export function login(data) {
   })
 }
 
+export function fetchUser() {
+  return request({
+    url: '/auth/user',
+    method: 'get',
+  })
+}
+
 export function register(data) {
   return request({
     url: '/auth/register',

@@ -23,11 +23,11 @@ abstract class Service
         return $this->repository->create($data);
     }
 
-    public function update($resourceId, array $data)
+    public function update(int $resourceId, array $data)
     {
         $resource = $this->getRequestedResource($resourceId);
 
-        $this->repository->update($resourceId, $data);
+        $this->repository->update($resource, $data);
 
         return $resource;
     }
@@ -37,7 +37,7 @@ abstract class Service
         $this->repository->delete($resourceId);
     }
 
-    private function getRequestedResource($resourceId, array $options = [])
+    protected function getRequestedResource($resourceId, array $options = [])
     {
         $resource = $this->repository->getById($resourceId, $options);
 

@@ -14,7 +14,9 @@ class TaskFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' => $this->faker->catchPhrase,
+            'index' => $this->faker->randomDigit(),
+            'deadline' => $this->faker->dateTimeBetween('-5 day', '+0 days')
         ];
     }
 }

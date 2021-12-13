@@ -7,8 +7,8 @@ use App\Models\Board;
 
 class BoardRepository extends Repository
 {
-    protected $sortProperty = 'id';
-    protected $sortDirection = 'ASC';
+    protected $sortProperty = 'created_at';
+    protected $sortDirection = 'DESC';
 
     public function getModel()
     {

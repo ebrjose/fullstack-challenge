@@ -4,7 +4,7 @@
       <div class="bg-gray-300 hover:bg-white border-l-4 border-purple-400 rounded-lg shadow-xl p-5 transition duration-500">
         <div class="flex flex-row items-center">
           <div class="flex-shrink pr-4">
-            <div class="rounded-full p-5 bg-purple-500 transition duration-500"><i class="fa fa-tasks fa-2x fa-inverse"></i></div>
+            <div class="text-sky-700 text-4xl"><i class="bi bi-kanban"></i></div>
           </div>
           <div class="flex-1 text-left md:text-left">
             <h3 class="font-bold uppercase text-gray-600">{{ board.title }}</h3>

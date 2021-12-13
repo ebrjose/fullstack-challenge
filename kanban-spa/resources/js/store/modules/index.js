@@ -1,3 +1,5 @@
 import auth from './auth'
+import board from './board'
+import task from './task'
 
-export { auth }
+export { auth, board, task }

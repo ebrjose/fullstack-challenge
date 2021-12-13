@@ -14,19 +14,19 @@
     <section class="mt-10">
       <form class="flex flex-col" method="POST" @submit.prevent="handleRegister">
         <form-field label="Name">
-          <input-field v-model="form.name" type="text" placeholder="John Doe" />
+          <input-field v-model="form.name" type="text" placeholder="John Doe" required />
         </form-field>
 
         <form-field label="Email">
-          <input-field v-model="form.email" type="email" placeholder="jdoe@example.com" />
+          <input-field v-model="form.email" type="email" placeholder="jdoe@example.com" required />
         </form-field>
 
         <form-field label="Password">
-          <input-field v-model="form.password" type="password" placeholder="secret" />
+          <input-field v-model="form.password" type="password" placeholder="secret" required />
         </form-field>
 
         <form-field label="Password Confirmation">
-          <input-field v-model="form.password_confirmation" type="password" placeholder="secret" />
+          <input-field v-model="form.password_confirmation" type="password" placeholder="secret" required />
         </form-field>
 
         <div class="flex items-end flex-col">
@@ -52,7 +52,7 @@ import FormField from '@/components/forms/FormField.vue'
 import InputField from '@/components/forms/InputField.vue'
 import ButtonField from '@/components/forms/ButtonField.vue'
 
-import { register } from '@/api/auth'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
@@ -71,9 +71,12 @@ export default {
     }
   },
   methods: {
+    ...mapActions('auth', ['register']),
     async handleRegister() {
-      const { data } = await register(this.form)
-      console.log('handleRegister -> data', data)
+      const data = await this.register(this.form)
+      if (data.user) {
+        this.$router.push({ path: '/' })
+      }
     },
   },
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Task\StoreTaskRequest;
 use App\Http\Requests\Task\UpdateTaskRequest;
+use App\Http\Requests\Task\UpdateIndexesRequest;
 use App\Services\TaskService;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -56,5 +57,12 @@ class TaskController extends Controller
     {
         $this->taskService->delete($task);
         return $this->response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function updateIndexes(UpdateIndexesRequest $request)
+    {
+        $data = $request->validated();
+        $response = $this->taskService->updateIndexes($data['indexes']);
+        return $this->response($response, Response::HTTP_ACCEPTED);
     }
 }

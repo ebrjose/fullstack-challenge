@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\TaskList;
+namespace App\Http\Requests\Task;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateTaskListRequest extends FormRequest
+class UpdateIndexesRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class UpdateTaskListRequest extends FormRequest
     public function rules()
     {
         return [
-            'board_id' => 'required',
-            'title' => 'required',
+            'indexes' => 'required|array'
         ];
     }
 }

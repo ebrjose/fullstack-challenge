@@ -14,4 +14,20 @@ class TaskService extends Service
     {
         $this->repository = $repository;
     }
+
+    public function updateIndexes(array $sortedIndexes)
+    {
+        $updated = [];
+
+        foreach ($sortedIndexes as $item) {
+            $taskId = $item['id'];
+            $data = [
+                'index' => $item['index'],
+                'task_list_id' => $item['task_list_id']
+            ];
+            $updated[] = $this->update($taskId, $data);
+        }
+
+        return $updated;
+    }
 }
