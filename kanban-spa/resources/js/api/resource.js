@@ -3,37 +3,39 @@ import request from '@/libs/axios'
 export class Resource {
   constructor(uri) {
     this.uri = uri
+    this.request = request
   }
 
   getAll(query) {
-    return request({
+    return this.request({
       url: '/' + this.uri,
       method: 'get',
       params: query,
     })
   }
-  getById(id) {
-    return request({
+  getById(id, query) {
+    return this.request({
       url: '/' + this.uri + '/' + id,
       method: 'get',
+      params: query,
     })
   }
   store(resource) {
-    return request({
+    return this.request({
       url: '/' + this.uri,
       method: 'post',
       data: resource,
     })
   }
   update(id, resource) {
-    return request({
+    return this.request({
       url: '/' + this.uri + '/' + id,
       method: 'put',
       data: resource,
     })
   }
   destroy(id) {
-    return request({
+    return this.request({
       url: '/' + this.uri + '/' + id,
       method: 'delete',
     })

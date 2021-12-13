@@ -17,12 +17,11 @@ class CreateTaskListTable extends Migration
             $table->id();
             $table->foreignId('board_id');
             $table->string('title');
-            $table->boolean('is_done_column')->default(false);
-            $table->integer('index');
+            $table->boolean('is_done')->default(false);
+            $table->integer('index')->default(99);
             $table->timestamps();
 
             $table->foreign('board_id')->references('id')->on('boards');
-            $table->unique(['board_id', 'index'], 'task_list_index');
         });
     }
 

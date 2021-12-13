@@ -14,11 +14,11 @@
     <section class="mt-10">
       <form class="flex flex-col" method="POST" @submit.prevent="handleLogin">
         <form-field label="Email">
-          <input-field v-model="form.email" type="email" placeholder="user@example.com" />
+          <input-field v-model="form.email" type="email" placeholder="user@example.com" required />
         </form-field>
 
         <form-field label="Password">
-          <input-field v-model="form.password" type="password" placeholder="secret" />
+          <input-field v-model="form.password" type="password" placeholder="password" required />
         </form-field>
 
         <div class="flex items-end flex-col">
@@ -29,10 +29,13 @@
         </div>
         <button-field type="submit">Sign In</button-field>
       </form>
+
+      <div class="mt-5"><span class="font-bold">Email:</span> user@example.com</div>
+      <div><span class="font-bold">Password:</span> password</div>
     </section>
   </main>
 
-  <footer class="max-w-lg mx-auto flex justify-center text-white">
+  <footer class="max-w-lg mx-auto flex justify-center text-white mt-10">
     <a href="https://wa.me/59167075727" target="_blank" class="hover:underline"> Contact </a>
     <span class="mx-3">•</span>
     <a href="https://www.linkedin.com/in/ebrjose/" target="_blank" class="hover:underline"> LinkedIn </a>
@@ -54,15 +57,27 @@ export default {
   },
   data() {
     return {
-      form: { email: 'user@example.com', password: 'password' },
+      form: { email: '', password: '' },
+      redirect: null,
     }
+  },
+  watch: {
+    $route: {
+      handler: function (route) {
+        const query = route.query
+        if (query) {
+          this.redirect = query.redirect
+        }
+      },
+      immediate: true,
+    },
   },
   methods: {
     ...mapActions('auth', ['login']),
     async handleLogin() {
       const data = await this.login(this.form)
       if (data.user) {
-        this.$router.push({ name: 'Dashboard' })
+        this.$router.push({ path: this.redirect || '/' })
       }
     },
   },

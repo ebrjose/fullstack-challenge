@@ -1,8 +1,24 @@
 import '@/bootstrap'
+import { removeUser, destroy } from '@/utils/auth'
+import { router } from '@/router'
 
-const request = window.axios.create({
+const service = window.axios.create({
   baseURL: '/api',
-  timeout: 1000,
+  timeout: 5000,
 })
 
-export default request
+service.interceptors.response.use(
+  (response) => {
+    return response
+  },
+  (error) => {
+    if (error.response) {
+      if (error.response.status === 401) {
+        destroy()
+        router.go(`/login?redirect=${router.currentRoute.value.fullPath}`)
+      }
+    }
+  }
+)
+
+export default service

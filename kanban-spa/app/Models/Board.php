@@ -10,22 +10,23 @@ class Board extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'user_id', 'title', 'slug'
-    ];
+    public static $whiteListFilter = ['user_id'];
 
-    public function setTitleAttribute($value)
-    {
-        $this->attributes['title'] = $value;
-        $this->attributes['slug'] = Str::slug($value);
-    }
+    protected $fillable = [
+        'user_id', 'title'
+    ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function scopeAuthUser($query)
+    public function taskList()
+    {
+        return $this->hasMany(TaskList::class);
+    }
+
+    public function scopeMe($query)
     {
         $query->where('user_id', auth()->user()->id);
     }

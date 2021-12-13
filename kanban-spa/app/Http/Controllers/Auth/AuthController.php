@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
     public function login(LoginRequest $request)
     {
@@ -17,9 +17,14 @@ class LoginController extends Controller
         return $this->response(['user' => auth()->user()], 200);
     }
 
+    public function user()
+    {
+        return $this->response(['user' => auth()->user()], 200);
+    }
+
     public function logout(Request $request)
     {
-        auth()->logout();
+        auth('web')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

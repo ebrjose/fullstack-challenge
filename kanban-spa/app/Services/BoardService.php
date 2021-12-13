@@ -10,8 +10,8 @@ class BoardService extends Service
 {
     protected Repository $repository;
 
-    public function __construct(BoardRepository $boardRepository)
+    public function __construct(BoardRepository $repository)
     {
-        $this->repository = $boardRepository;
+        $this->repository = $repository;
     }
 }

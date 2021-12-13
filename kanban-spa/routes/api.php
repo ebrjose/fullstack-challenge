@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BoardController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TaskIndexesController;
+use App\Http\Controllers\TaskListController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,17 +23,21 @@ use Illuminate\Support\Facades\Route;
 //    require __DIR__.'/auth.php';
 //});
 
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::apiResource('boards', BoardController::class);
+    Route::apiResource('task-list', TaskListController::class);
+
+    Route::post('tasks/update-indexes', [TaskController::class, 'updateIndexes'])->name('tasks.update-indexes');
+    Route::apiResource('tasks', TaskController::class);
 });
 
 Route::group(['prefix' => 'auth'], function () {
-    Route::post('login', [LoginController::class, 'login'])->name('auth.login');
+    Route::post('login', [AuthController::class, 'login'])->name('auth.login');
     Route::post('register', [RegisterController::class, 'store'])->name('auth.register');
 
-    Route::post('logout', [LoginController::class, 'logout'])
-        ->middleware(['auth:sanctum'])
-        ->name('auth.logout');
+    Route::group(['middleware' => 'auth:sanctum'], function () {
+        Route::get('user', [AuthController::class, 'user'])->name('auth.user');
+        Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
+    });
 });
-
-Route::apiResource('boards', BoardController::class);

@@ -14,7 +14,7 @@ class BoardFactory extends Factory
      */
     public function definition()
     {
-        $title = $this->faker->words(3, true);
+        $title = $this->faker->catchPhrase;
         return [
             'title' => ucfirst($title),
             'user_id' => User::all()->random()

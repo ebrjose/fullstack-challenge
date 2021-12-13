@@ -2,7 +2,6 @@
 
 namespace App\Abstracts;
 
-use Illuminate\Database\Eloquent\Model;
 use one2tek\larapi\Database\Repository as BaseRepository;
 
 abstract class Repository extends BaseRepository
@@ -20,7 +19,7 @@ abstract class Repository extends BaseRepository
         return $model;
     }
 
-    public function update(Model $model, array $data)
+    public function update($model, array $data)
     {
         $model->fill($data);
         $model->save();

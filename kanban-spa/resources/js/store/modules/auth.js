@@ -1,9 +1,9 @@
-import { login, logout } from '@/api/auth'
-import { isLogged, setLogged, removeToken } from '@/utils/auth'
+import { login, logout, fetchUser, register } from '@/api/authResource'
+import * as auth from '@/utils/auth'
 
 const state = {
-  user: null,
-  isLogged: isLogged(),
+  user: auth.getUser(),
+  isLogged: auth.isLogged(),
 }
 
 const getters = {
@@ -23,7 +23,8 @@ const actions = {
     return new Promise((resolve, reject) => {
       login({ email: email.trim(), password: password })
         .then(({ data }) => {
-          setLogged('1')
+          auth.setLogged()
+          auth.setUser(data.user)
           commit('SET_USER', data.user)
           resolve(data)
         })
@@ -32,14 +33,43 @@ const actions = {
         })
     })
   },
-
   logout({ commit }) {
     return new Promise((resolve, reject) => {
       logout()
         .then(() => {
-          removeToken()
-          resolve()
+          auth.destroy()
           commit('SET_USER', null)
+          resolve()
+        })
+        .catch((error) => {
+          reject(error)
+        })
+    })
+  },
+  getUser({ commit }) {
+    return new Promise((resolve, reject) => {
+      if (auth.getUser()) {
+        resolve(auth.getUser())
+      }
+
+      fetchUser()
+        .then(({ data }) => {
+          commit('SET_USER', data.user)
+          resolve(data.user)
+        })
+        .catch((error) => {
+          reject(error)
+        })
+    })
+  },
+  register({ commit }, form) {
+    return new Promise((resolve, reject) => {
+      register(form)
+        .then(({ data }) => {
+          auth.setLogged()
+          auth.setUser(data.user)
+          commit('SET_USER', data.user)
+          resolve(data)
         })
         .catch((error) => {
           reject(error)

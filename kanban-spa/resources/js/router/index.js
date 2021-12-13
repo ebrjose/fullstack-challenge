@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import Dashboard from '@/views/Dashboard'
+import Home from '@/views/Home'
 import { isLogged } from '@/utils/auth'
 
 function lazyLoad(view) {
@@ -10,8 +10,8 @@ function lazyLoad(view) {
 const routes = [
   {
     path: '/',
-    name: 'Dashboard',
-    component: Dashboard,
+    name: 'Home',
+    component: Home,
   },
   {
     path: '/login',
@@ -57,7 +57,7 @@ router.beforeEach(async (to, from, next) => {
   }
 
   if (!isUserLogged && !whiteList.includes(to.path)) {
-    return next('/login')
+    return next(`/login?redirect=${to.path}`)
   }
 
   next()
