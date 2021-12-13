@@ -1,24 +1,21 @@
 <?php
 
-namespace Database\Seeders;
+namespace App\Services;
 
 use App\Models\Board;
 use App\Models\Task;
 use App\Models\TaskList;
-use Illuminate\Database\Seeder;
+use App\Models\User;
 
-class BoardTableSeeder extends Seeder
+class SetupUserBoardService
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    public function setup(User $user)
     {
-        $boards = Board::factory(20)->create();
+        $userBoards = Board::factory(2)->create([
+            'user_id' => $user->id
+        ]);
 
-        $boards->each(function ($board) {
+        $userBoards->each(function ($board) {
             $taskListBuffer = TaskList::factory()->make(['title' => 'Buffer', 'index' => 1]);
             $taskListWorking = TaskList::factory()->make(['title' => 'Working', 'index' => 2]);
             $taskListDone = TaskList::factory()->make(['title' => 'Done', 'index' => 3, 'is_done' => true]);
